@@ -2,20 +2,20 @@ package ru.lopav.kzn.fb
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.google.firebase.FirebaseApp
+import com.facebook.appevents.AppEventsConstants
+import com.facebook.appevents.AppEventsLogger
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class SplashActivity: AppCompatActivity() {
+class SplashActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FirebaseApp.initializeApp(this)
         setContentView(R.layout.activity_splash)
+        getLogger().logEvent(AppEventsConstants.EVENT_NAME_ACTIVATED_APP)
         checkDatabase()
     }
 

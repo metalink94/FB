@@ -29,6 +29,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.5'
     implementation 'com.google.firebase:firebase-database:16.0.5'
     implementation 'com.facebook.android:facebook-core:[4,5)'
+    implementation 'com.facebook.android:facebook-marketing:[4,5)'
 
     // Test
     testImplementation 'junit:junit:4.12'
