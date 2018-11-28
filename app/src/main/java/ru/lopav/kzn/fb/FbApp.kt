@@ -13,8 +13,8 @@ class FbApp: Application() {
     override fun onCreate() {
         FirebaseApp.initializeApp(this)
         super.onCreate()
+        FacebookSdk.setIsDebugEnabled(true)
+        FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS)
         logger = AppEventsLogger.newLogger(this)
-        FacebookSdk.setIsDebugEnabled(true);
-        FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
     }
 }
