@@ -2,4 +2,12 @@
     <string name="app_name">FB</string>
     <string name="facebook_app_id">267853527245740</string>
     <string name="fb_login_protocol_scheme">fb267853527245740</string>
+    <string name="congr">Поздравляем!</string>
+    <string name="congr_mess">Вы показали удивительную интуицую в нашей игре и победили. Проверьте её ещё раз, нажав
+        кнопку \"заново\"!
+    </string>
+    <string name="lose">Проигрыш:(</string>
+    <string name="lose_text">Увы! Вы проиграли. Но не стоит огорчаться, вы всегда можете попробовать еще раз! Просто
+        нажмите на кнопку:)
+    </string>
 </resources>

@@ -19,7 +19,6 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        getLogger().logEvent("openApp");
 //        getHashKey()
         checkDatabase()
     }
