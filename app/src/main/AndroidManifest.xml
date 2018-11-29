@@ -19,7 +19,7 @@
 
         <meta-data
                 android:name="com.facebook.sdk.CodelessDebugLogEnabled"
-                android:value="true" />
+                android:value="true"/>
 
         <activity android:name=".MainActivity"
                   android:screenOrientation="portrait"/>

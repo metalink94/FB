@@ -3,23 +3,41 @@ package ru.lopav.kzn.fb
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
+import android.widget.ViewFlipper
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random
+
 
 class MainActivity : AppCompatActivity(), DialogListener {
 
     private var pos = 0
     private var loseAttempt = 0
+    private var height = 0
+    private var width = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        getScreenSettings()
         startGame()
+    }
 
+    private fun getScreenSettings() {
+        val metrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(metrics)
+        width = metrics.widthPixels / 4
+        height = metrics.heightPixels / 3
+        if (3 * width > metrics.heightPixels / 3 * 2) {
+            height = metrics.heightPixels / 3 * 2
+            width = height / 4
+        }
     }
 
     private fun startGame() {
@@ -54,7 +72,7 @@ class MainActivity : AppCompatActivity(), DialogListener {
     private fun addFlipperIconContent(i: Int): View {
         val relative2 = RelativeLayout(this)
         relative2.layoutParams =
-                ViewGroup.LayoutParams(BUTTON_H_W, BUTTON_H_W)
+                ViewGroup.LayoutParams(width, width)
         relative2.setBackgroundResource(R.drawable.rectangle_grey)
         relative2.addView(addIcon(i))
         return relative2
@@ -62,7 +80,7 @@ class MainActivity : AppCompatActivity(), DialogListener {
 
     private fun addIcon(position: Int): View {
         val icon = ImageView(this)
-        val layoutParams = RelativeLayout.LayoutParams(ICON_H_W, ICON_H_W)
+        val layoutParams = RelativeLayout.LayoutParams(width / 3 * 2, width / 3 * 2)
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
         icon.layoutParams = layoutParams
         if (position == pos) {
@@ -75,7 +93,7 @@ class MainActivity : AppCompatActivity(), DialogListener {
 
     private fun addFlipperContent(i: Int, flipView: ViewFlipper): View {
         val relative1 = RelativeLayout(this)
-        relative1.layoutParams = ViewGroup.LayoutParams(BUTTON_H_W, BUTTON_H_W)
+        relative1.layoutParams = ViewGroup.LayoutParams(width, width)
         relative1.setBackgroundResource(R.drawable.rectangle_grey)
         relative1.addView(addTextView(i))
         relative1.setOnClickListener { onCardClick(i, flipView) }
