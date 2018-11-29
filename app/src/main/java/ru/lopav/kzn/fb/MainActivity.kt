@@ -12,6 +12,9 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.ViewFlipper
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.lopav.kzn.fb.dialogs.CongratulationDialog
+import ru.lopav.kzn.fb.dialogs.DialogListener
+import ru.lopav.kzn.fb.dialogs.HelloDialog
 import kotlin.random.Random
 
 
@@ -26,7 +29,13 @@ class MainActivity : AppCompatActivity(), DialogListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         getScreenSettings()
+        showHelloAlert()
         startGame()
+    }
+
+    private fun showHelloAlert() {
+        val fragment = HelloDialog()
+        supportFragmentManager.beginTransaction().add(fragment, "tag").commitAllowingStateLoss()
     }
 
     private fun getScreenSettings() {
@@ -91,11 +100,24 @@ class MainActivity : AppCompatActivity(), DialogListener {
         return icon
     }
 
+    private fun addIconPreview(position: Int): View {
+        val icon = ImageView(this)
+        val layoutParams = RelativeLayout.LayoutParams(width / 3 * 2, width / 3 * 2)
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
+        icon.layoutParams = layoutParams
+        when (position) {
+            1,3,9 -> icon.setImageResource(R.drawable.ic_meteorite)
+            2,4,6,8 -> icon.setImageResource(R.drawable.ic_planet)
+            else -> icon.setImageResource(R.drawable.ic_spaceship)
+        }
+        return icon
+    }
+
     private fun addFlipperContent(i: Int, flipView: ViewFlipper): View {
         val relative1 = RelativeLayout(this)
         relative1.layoutParams = ViewGroup.LayoutParams(width, width)
         relative1.setBackgroundResource(R.drawable.rectangle_grey)
-        relative1.addView(addTextView(i))
+        relative1.addView(addIconPreview(i))
         relative1.setOnClickListener { onCardClick(i, flipView) }
         return relative1
     }
@@ -167,8 +189,6 @@ class MainActivity : AppCompatActivity(), DialogListener {
     }
 
     companion object {
-        private const val BUTTON_H_W = 180
-        private const val ICON_H_W = 160
         private const val TEXT_SIZE = 24f
     }
 }

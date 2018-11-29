@@ -1,4 +1,4 @@
-package ru.lopav.kzn.fb
+package ru.lopav.kzn.fb.dialogs
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import kotlinx.android.synthetic.main.dialog_layout.*
+import ru.lopav.kzn.fb.R
 
 class CongratulationDialog: DialogFragment() {
 
