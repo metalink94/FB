@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), DialogListener {
             flipView.setOutAnimation(this, android.R.anim.fade_out)
             flipView.addView(addFlipperContent(i, flipView))
             flipView.addView(addFlipperIconContent(i))
+            flipView.setPadding(8, 8, 8, 8)
             gridLayout.addView(flipView)
         }
     }
