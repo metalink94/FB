@@ -8,11 +8,26 @@
         tools:context=".MainActivity"
         android:background="@drawable/city">
 
+    <TextView
+            android:id="@+id/gold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_gold"
+            android:drawableEnd="@drawable/ic_gold"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="right"
+            android:textColor="@color/gold"
+            android:text="1000"
+            android:drawablePadding="8dp"
+            android:layout_margin="16dp"
+    />
+
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="54dp"
+            android:layout_marginTop="16dp"
             android:layout_gravity="center">
 
         <View
@@ -46,7 +61,7 @@
             android:rowCount="3"
             android:columnCount="3"
             android:layout_gravity="center"
-    android:layout_marginTop="64dp">
+            android:layout_marginTop="64dp">
 
     </GridLayout>
 

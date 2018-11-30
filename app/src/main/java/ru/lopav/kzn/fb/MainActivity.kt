@@ -2,7 +2,6 @@ package ru.lopav.kzn.fb
 
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
@@ -15,15 +14,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 import ru.lopav.kzn.fb.dialogs.CongratulationDialog
 import ru.lopav.kzn.fb.dialogs.DialogListener
 import ru.lopav.kzn.fb.dialogs.HelloDialog
+import ru.lopav.kzn.fb.dialogs.MoneyDialog
 import kotlin.random.Random
 
 
-class MainActivity : AppCompatActivity(), DialogListener {
+class MainActivity : BaseActivity(), DialogListener {
 
     private var pos = 0
     private var loseAttempt = 0
     private var height = 0
     private var width = 0
+    private var goldMoney = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,12 +106,19 @@ class MainActivity : AppCompatActivity(), DialogListener {
         val layoutParams = RelativeLayout.LayoutParams(width / 3 * 2, width / 3 * 2)
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
         icon.layoutParams = layoutParams
-        when (position) {
-            1,3,9 -> icon.setImageResource(R.drawable.ic_meteorite)
-            2,4,6,8 -> icon.setImageResource(R.drawable.ic_planet)
-            else -> icon.setImageResource(R.drawable.ic_spaceship)
-        }
+        icon.setImageResource(getImageResource())
         return icon
+    }
+
+    private fun getImageResource(): Int {
+        val r = Random.nextInt(20)
+        return when {
+            r % 3 == 0 -> R.drawable.ic_meteorite
+            r % 4 == 0 -> R.drawable.ic_planet
+            r % 5 == 0 -> R.drawable.ic_spaceship
+            r % 7 == 0 -> R.drawable.ic_shuttle
+            else -> R.drawable.ic_moon
+        }
     }
 
     private fun addFlipperContent(i: Int, flipView: ViewFlipper): View {
@@ -148,8 +156,18 @@ class MainActivity : AppCompatActivity(), DialogListener {
         Handler().postDelayed(
             {
                 showWinnerDialog(state)
+                changeGold(state)
             }, 100
         )
+    }
+
+    private fun changeGold(state: Boolean) {
+        if (state) {
+            goldMoney += 500
+        } else {
+            goldMoney -= 100
+        }
+        gold.text = goldMoney.toString()
     }
 
     private fun checkAttempt(flipView: ViewFlipper) {
@@ -186,6 +204,16 @@ class MainActivity : AppCompatActivity(), DialogListener {
 
     override fun onButtonClick() {
         startGame()
+        checkMoney()
+    }
+
+    private fun checkMoney() {
+        if (goldMoney < 0) {
+            val fragment = MoneyDialog()
+            supportFragmentManager.beginTransaction().add(fragment, "money").commitAllowingStateLoss()
+            goldMoney = 900
+            gold.text = goldMoney.toString()
+        }
     }
 
     companion object {
