@@ -10,4 +10,5 @@
     <color name="light">#FFFFFF</color>
     <color name="grey">#B3AAAAAA</color>
     <color name="gold">#FFDF00</color>
+    <color name="status_bar">#0668A8</color>
 </resources>

@@ -84,7 +84,7 @@ class WebViewActivity: AppCompatActivity() {
     companion object {
         const val KEY_URL = "url"
 
-        fun getInstance(context: Context, url: String): Intent =
+        fun getInstance(context: Context, url: String?): Intent =
             Intent(context, WebViewActivity::class.java)
                 .putExtra(KEY_URL, url)
     }

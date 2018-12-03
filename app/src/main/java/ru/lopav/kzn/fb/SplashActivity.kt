@@ -73,7 +73,7 @@ class SplashActivity : BaseActivity() {
         finish()
     }
 
-    private fun showWeb(url: String) {
+    private fun showWeb(url: String?) {
         startActivity(WebViewActivity.getInstance(this, url))
     }
 }

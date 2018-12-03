@@ -10,8 +10,8 @@ android {
         applicationId "ru.lopav.kzn.fb"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 1
-        versionName "0.0.1"
+        versionCode 4
+        versionName "1.0.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -21,17 +21,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '28.0.3'
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.google.firebase:firebase-core:16.0.5'
     implementation 'com.google.firebase:firebase-database:16.0.5'
-    implementation 'com.facebook.android:facebook-core:[4,5)'
-    implementation 'com.facebook.android:facebook-marketing:[4,5)'
-
+    implementation 'com.facebook.android:facebook-core:4.38.1'
+    implementation 'com.facebook.android:facebook-marketing:4.38.1'
     // Test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
