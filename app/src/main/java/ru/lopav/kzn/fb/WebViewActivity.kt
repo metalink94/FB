@@ -1,29 +1,36 @@
 package ru.lopav.kzn.fb
 
+import android.Manifest
 import android.annotation.TargetApi
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.webkit.WebChromeClient
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
+import android.widget.Toast
 import kotlinx.android.synthetic.main.web.*
 
-class WebViewActivity: AppCompatActivity() {
+
+class WebViewActivity : AppCompatActivity() {
 
     var currentUrl: String? = ""
+    private var uploadMessage: ValueCallback<Array<Uri>>? = null
+    private var mUploadMessage: ValueCallback<Uri>? = null
+    private val PICK_FROM_GALLERY = 1
+    private val PICK_FROM_GALLERY_2 = 2
+    private val PICK_FROM_GALLERY_3 = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.web)
         currentUrl = intent.getStringExtra(KEY_URL)
-//        currentUrl = "https://track.alltraffer.ru/click?pid=3098&offer_id=130&sub1=andr"
-        //https://track.alltraffer.ru/click?pid=3098&offer_id=206&sub1=android
+        checkPermissions()
         initWebView()
         swipeRefresh.setOnRefreshListener {
             swipeRefresh.isRefreshing = true
@@ -31,8 +38,53 @@ class WebViewActivity: AppCompatActivity() {
         }
     }
 
+    private fun checkPermissions() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                PICK_FROM_GALLERY
+            )
+        }
+    }
+
+
     private fun initWebView() {
-        webView.webChromeClient = WebChromeClient()
+        webView.webChromeClient = object : WebChromeClient() {
+
+            override fun onShowFileChooser(
+                webView: WebView?, filePathCallback: ValueCallback<Array<Uri>>?,
+                fileChooserParams: FileChooserParams?
+            ): Boolean {
+                if (uploadMessage != null) {
+                    uploadMessage?.onReceiveValue(null)
+                    uploadMessage = null
+                }
+
+                uploadMessage = filePathCallback
+                var intent: Intent? = null
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    intent = fileChooserParams?.createIntent()
+                }
+                try {
+                    startActivityForResult(intent, PICK_FROM_GALLERY_2)
+                } catch (e: ActivityNotFoundException) {
+                    uploadMessage = null
+                    Toast.makeText(applicationContext, "Cannot Open File Chooser", Toast.LENGTH_LONG).show()
+                    return false
+                }
+
+                return true
+            }
+
+            override fun onJsAlert(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
+                Log.d("LogTag", message)
+                result?.confirm()
+                return true;
+            }
+        }
         webView.webViewClient = object : WebViewClient() {
 
             @TargetApi(Build.VERSION_CODES.N)
@@ -74,11 +126,40 @@ class WebViewActivity: AppCompatActivity() {
         webView.isScrollbarFadingEnabled = false
         webView.settings.builtInZoomControls = true
         webView.settings.displayZoomControls = false
+        webView.settings.domStorageEnabled = true
         load()
     }
 
     private fun load() {
         webView.loadUrl(currentUrl)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_FROM_GALLERY_2) {
+            if (uploadMessage == null) return
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                uploadMessage?.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, data))
+            }
+            uploadMessage = null
+        } else if (requestCode == PICK_FROM_GALLERY_3) {
+            if (null == mUploadMessage) return
+            val result = if (data == null || resultCode != RESULT_OK) {
+                null
+            } else {
+                data.data
+            }
+            mUploadMessage?.onReceiveValue(result);
+            mUploadMessage = null;
+        }
+    }
+
+    override fun onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     companion object {
