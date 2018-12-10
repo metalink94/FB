@@ -10,8 +10,8 @@ android {
         applicationId "ru.lopav.kzn.fb"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 8
-        versionName "1.1.5"
+        versionCode 10
+        versionName "1.1.6"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

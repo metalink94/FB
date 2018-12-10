@@ -1,22 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
         android:layout_height="match_parent"
 >
 
-    <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefresh"
+    <LinearLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/status_bar"
+            android:layout_alignParentTop="true"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+
+        <TextView
+                android:id="@+id/titleView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/light"
+                android:layout_gravity="center_vertical"
+                android:text="@string/app_name"
+                android:textSize="24sp"/>
+
+        <ImageView
+                android:id="@+id/refresh"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="6dp"
+                app:srcCompat="@drawable/ic_refresh"/>
+    </LinearLayout>
+
+    <WebView
+            android:layout_below="@+id/toolbar"
+            android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-    >
+    />
 
-        <WebView
-                android:id="@+id/webView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-        />
-    </android.support.v4.widget.SwipeRefreshLayout>
+    <ProgressBar
+            android:layout_below="@+id/toolbar"
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 
 </RelativeLayout>

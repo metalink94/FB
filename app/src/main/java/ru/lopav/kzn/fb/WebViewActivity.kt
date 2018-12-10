@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.webkit.*
 import android.widget.Toast
 import kotlinx.android.synthetic.main.web.*
@@ -32,10 +33,14 @@ class WebViewActivity : AppCompatActivity() {
         currentUrl = intent.getStringExtra(KEY_URL)
         checkPermissions()
         initWebView()
-        swipeRefresh.setOnRefreshListener {
-            swipeRefresh.isRefreshing = true
-            load()
+        refresh.setOnClickListener {
+            refreshClick()
         }
+    }
+
+    private fun refreshClick() {
+        load()
+        refresh.setOnClickListener(null)
     }
 
     private fun checkPermissions() {
@@ -53,6 +58,17 @@ class WebViewActivity : AppCompatActivity() {
 
     private fun initWebView() {
         webView.webChromeClient = object : WebChromeClient() {
+
+            override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                super.onProgressChanged(view, newProgress)
+                progress.progress = newProgress
+                if (newProgress == 100) {
+                    progress.visibility = View.GONE
+                    refresh.setOnClickListener { refreshClick() }
+                } else {
+                    progress.visibility = View.VISIBLE
+                }
+            }
 
             override fun onShowFileChooser(
                 webView: WebView?, filePathCallback: ValueCallback<Array<Uri>>?,
@@ -112,7 +128,6 @@ class WebViewActivity : AppCompatActivity() {
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                swipeRefresh.isRefreshing = false
             }
         }
         webView.clearCache(true)
