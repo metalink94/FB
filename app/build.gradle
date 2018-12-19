@@ -28,12 +28,14 @@ android {
         space {
             dimension "releaseType"
             applicationId "ru.lopav.kzn.fb"
+            buildConfigField 'String', 'APP_PACKAGE', '"ru.lopav.kzn.fb"'
         }
         game {
             dimension "releaseType"
             applicationId "ru.lopav.kzn.game"
             versionCode = 1
             versionName = "1.0.0"
+            buildConfigField 'String', 'APP_PACKAGE', '"ru.lopav.kzn.game"'
         }
     }
 }

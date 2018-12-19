@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import ru.lopav.kzn.fb.BuildConfig
 import ru.lopav.kzn.fb.R
 import ru.lopav.kzn.fb.utils.BaseActivity
 import java.security.MessageDigest
@@ -31,14 +32,14 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        getHashKey()
+//        getHashKey()
         checkDeepLink(getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE))
     }
 
     private fun getHashKey() {
         try {
             val info = packageManager.getPackageInfo(
-                "ru.lopav.kzn.fb",
+                BuildConfig.APP_PACKAGE,
                 PackageManager.GET_SIGNATURES
             )
             for (signature in info.signatures) {
