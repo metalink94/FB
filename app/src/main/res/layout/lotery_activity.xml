@@ -3,6 +3,7 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/background"
 >
 
     <TextView
@@ -18,14 +19,15 @@
             android:paddingBottom="48dp"
             android:paddingRight="8dp"
             android:paddingLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/circle_bg"/>
+            android:layout_marginTop="32dp"
+            android:background="@drawable/circle_bg"
+            android:layout_below="@+id/layout"/>
 
     <LinearLayout
+            android:id="@+id/layout"
+            android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btn"
-            android:layout_marginTop="32dp"
             android:orientation="horizontal"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp">
@@ -35,19 +37,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
-            <ImageView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:id="@+id/back1"
-                    app:srcCompat="@drawable/ic_cross"
-                    android:layout_gravity="center"/>
 
             <ImageView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
                     app:srcCompat="@drawable/ic_gaming_card"
                     android:layout_gravity="center"/>
 
+            <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:id="@+id/back1"
+                    app:srcCompat="@drawable/ic_cross"
+                    android:layout_gravity="center"/>
 
 
         </ru.lopav.kzn.fb.utils.FlipView>
@@ -59,16 +61,16 @@
                 android:layout_weight="1">
 
             <ImageView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:id="@+id/back2"
-                    app:srcCompat="@drawable/ic_cross"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    app:srcCompat="@drawable/ic_gaming_card"
                     android:layout_gravity="center"/>
 
             <ImageView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    app:srcCompat="@drawable/ic_gaming_card"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:id="@+id/back2"
+                    app:srcCompat="@drawable/ic_cross"
                     android:layout_gravity="center"/>
 
 
@@ -81,16 +83,16 @@
                 android:layout_weight="1">
 
             <ImageView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:id="@+id/back3"
-                    app:srcCompat="@drawable/ic_cross"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    app:srcCompat="@drawable/ic_gaming_card"
                     android:layout_gravity="center"/>
 
             <ImageView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    app:srcCompat="@drawable/ic_gaming_card"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:id="@+id/back3"
+                    app:srcCompat="@drawable/ic_cross"
                     android:layout_gravity="center"/>
 
 

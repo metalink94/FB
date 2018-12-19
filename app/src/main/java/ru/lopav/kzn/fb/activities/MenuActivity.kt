@@ -13,11 +13,9 @@ class MenuActivity: BaseActivity() {
         setContentView(R.layout.menu_activity)
         space.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
-            finish()
         }
         lotery.setOnClickListener {
             startActivity(Intent(this, LoteryActivity::class.java))
-            finish()
         }
     }
 }

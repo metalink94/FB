@@ -219,20 +219,20 @@ class FlipView : FrameLayout {
         cardBackLayout?.visibility = View.VISIBLE
         cardFrontLayout?.visibility = View.VISIBLE
 
-        if (currentFlipState == FlipState.FRONT_SIDE) {
+        currentFlipState = if (currentFlipState == FlipState.FRONT_SIDE) {
             // From front to back
             setRightOut.setTarget(cardFrontLayout)
             setLeftIn.setTarget(cardBackLayout)
             setRightOut.start()
             setLeftIn.start()
-            currentFlipState = FlipState.BACK_SIDE
+            FlipState.BACK_SIDE
         } else {
             // from back to front
             setRightOut.setTarget(cardBackLayout)
             setLeftIn.setTarget(cardFrontLayout)
             setRightOut.start()
             setLeftIn.start()
-            currentFlipState = FlipState.FRONT_SIDE
+            FlipState.FRONT_SIDE
         }
     }
 
