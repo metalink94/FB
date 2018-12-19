@@ -1,4 +1,4 @@
-package ru.lopav.kzn.fb
+package ru.lopav.kzn.fb.activities
 
 import android.Manifest
 import android.annotation.TargetApi
@@ -16,6 +16,7 @@ import android.view.View
 import android.webkit.*
 import android.widget.Toast
 import kotlinx.android.synthetic.main.web.*
+import ru.lopav.kzn.fb.R
 
 
 class WebViewActivity : AppCompatActivity() {

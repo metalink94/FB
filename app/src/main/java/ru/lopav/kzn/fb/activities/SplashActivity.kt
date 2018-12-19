@@ -1,15 +1,17 @@
-package ru.lopav.kzn.fb
+package ru.lopav.kzn.fb.activities
 
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import com.facebook.appevents.AppEventsConstants
+import com.facebook.applinks.AppLinkData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import ru.lopav.kzn.fb.R
+import ru.lopav.kzn.fb.utils.BaseActivity
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -69,7 +71,7 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun showMainScreen() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, MenuActivity::class.java))
         finish()
     }
 

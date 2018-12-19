@@ -11,4 +11,6 @@
     <color name="grey">#B3AAAAAA</color>
     <color name="gold">#FFDF00</color>
     <color name="status_bar">#0668A8</color>
+    <color name="circle_color">#fb0202</color>
+    <color name="circle_color_pressed">#c90000</color>
 </resources>

@@ -1,4 +1,4 @@
-package ru.lopav.kzn.fb
+package ru.lopav.kzn.fb.activities
 
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +11,8 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.ViewFlipper
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.lopav.kzn.fb.utils.BaseActivity
+import ru.lopav.kzn.fb.R
 import ru.lopav.kzn.fb.dialogs.CongratulationDialog
 import ru.lopav.kzn.fb.dialogs.DialogListener
 import ru.lopav.kzn.fb.dialogs.HelloDialog
@@ -101,7 +103,7 @@ class MainActivity : BaseActivity(), DialogListener {
         return icon
     }
 
-    private fun addIconPreview(position: Int): View {
+    private fun addIconPreview(): View {
         val icon = ImageView(this)
         val layoutParams = RelativeLayout.LayoutParams(width / 3 * 2, width / 3 * 2)
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
@@ -125,7 +127,7 @@ class MainActivity : BaseActivity(), DialogListener {
         val relative1 = RelativeLayout(this)
         relative1.layoutParams = ViewGroup.LayoutParams(width, width)
         relative1.setBackgroundResource(R.drawable.rectangle_grey)
-        relative1.addView(addIconPreview(i))
+        relative1.addView(addIconPreview())
         relative1.setOnClickListener { onCardClick(i, flipView) }
         return relative1
     }

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+>
+
+    <TextView
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:text="Поехали!"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/light"
+            android:textSize="24sp"
+            android:paddingTop="48dp"
+            android:paddingBottom="48dp"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle_bg"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+        <ru.lopav.kzn.fb.utils.FlipView
+                android:id="@+id/flipView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+            <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:id="@+id/back1"
+                    app:srcCompat="@drawable/ic_cross"
+                    android:layout_gravity="center"/>
+
+            <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    app:srcCompat="@drawable/ic_gaming_card"
+                    android:layout_gravity="center"/>
+
+
+
+        </ru.lopav.kzn.fb.utils.FlipView>
+
+        <ru.lopav.kzn.fb.utils.FlipView
+                android:id="@+id/flipView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+            <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:id="@+id/back2"
+                    app:srcCompat="@drawable/ic_cross"
+                    android:layout_gravity="center"/>
+
+            <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    app:srcCompat="@drawable/ic_gaming_card"
+                    android:layout_gravity="center"/>
+
+
+        </ru.lopav.kzn.fb.utils.FlipView>
+
+        <ru.lopav.kzn.fb.utils.FlipView
+                android:id="@+id/flipView3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+            <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:id="@+id/back3"
+                    app:srcCompat="@drawable/ic_cross"
+                    android:layout_gravity="center"/>
+
+            <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    app:srcCompat="@drawable/ic_gaming_card"
+                    android:layout_gravity="center"/>
+
+
+        </ru.lopav.kzn.fb.utils.FlipView>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
