@@ -1,11 +1,13 @@
 package ru.lopav.kzn.fb.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import com.facebook.applinks.AppLinkData
+import com.airbnb.deeplinkdispatch.DeepLink
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -18,11 +20,19 @@ import java.security.NoSuchAlgorithmException
 
 class SplashActivity : BaseActivity() {
 
+    companion object {
+        // это будет именем файла настроек
+        val APP_PREFERENCES = "mysettings"
+        val APP_PREFERENCES_Link = "Deep_Link"
+    }
+
+    private var webUrl: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-//        getHashKey()
-        checkDatabase()
+        getHashKey()
+        checkDeepLink(getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE))
     }
 
     private fun getHashKey() {
@@ -50,8 +60,8 @@ class SplashActivity : BaseActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.value != null) {
                     val web = p0.child("web").value as Boolean
-                    val url = p0.child("url").value as String?
-                    router(web, url)
+                    webUrl = p0.child("url").value as String?
+                    router(web, webUrl)
                 }
                 Log.d("DataBase", "get database ${p0.value}")
             }
@@ -60,6 +70,19 @@ class SplashActivity : BaseActivity() {
                 router()
             }
         })
+    }
+
+    private fun checkDeepLink(sharedPreferences: SharedPreferences) {
+        if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false) ||
+            sharedPreferences.getBoolean(APP_PREFERENCES_Link, false)
+        ) {
+            val editor = sharedPreferences.edit()
+            editor.putBoolean(APP_PREFERENCES_Link, true)
+            editor.apply()
+            checkDatabase()
+        } else {
+            router()
+        }
     }
 
     private fun router(isWeb: Boolean = false, url: String? = null) {

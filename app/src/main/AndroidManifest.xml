@@ -41,6 +41,24 @@
         <activity android:name=".utils.BaseActivity"/>
         <activity android:name=".activities.MenuActivity"/>
         <activity android:name=".activities.LoteryActivity"/>
+        <activity android:name=".deepLink.DeepLinkActivity"
+            android:theme="@style/NoUiAppTheme"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            >
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:scheme="mfbcas"
+                        android:host="screen"
+                />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

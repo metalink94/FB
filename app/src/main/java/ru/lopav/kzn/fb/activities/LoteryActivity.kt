@@ -7,8 +7,7 @@ import kotlinx.android.synthetic.main.lotery_activity.*
 import ru.lopav.kzn.fb.R
 import ru.lopav.kzn.fb.utils.BaseActivity
 import ru.lopav.kzn.fb.utils.FlipView
-import java.util.*
-import kotlin.concurrent.schedule
+import kotlin.concurrent.fixedRateTimer
 
 class LoteryActivity : BaseActivity() {
 
@@ -19,11 +18,6 @@ class LoteryActivity : BaseActivity() {
     }
 
     private fun startGame() {
-        for (i in 0..3) {
-            Timer("SettingUp", false).schedule(310) {
-                flip(flipView)
-            }
-        }
 /*
         for (i in 0..7) {
             Handler().postDelayed(
