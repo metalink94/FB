@@ -33,7 +33,7 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 //        getHashKey()
-        checkDeepLink(getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE))
+        checkDatabase(getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE))
     }
 
     private fun getHashKey() {
@@ -55,35 +55,46 @@ class SplashActivity : BaseActivity() {
 
     }
 
-    private fun checkDatabase() {
+    private fun checkDatabase(sharedPreferences: SharedPreferences) {
         val database = FirebaseDatabase.getInstance()
         database.reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.value != null) {
+                    val link = p0.child("link").value as Boolean
                     val web = p0.child("web").value as Boolean
                     webUrl = p0.child("url").value as String?
-                    router(web, webUrl)
+                    checkDeepLink(sharedPreferences, web, webUrl, link)
                 }
                 Log.d("DataBase", "get database ${p0.value}")
             }
 
             override fun onCancelled(p0: DatabaseError) {
-                router()
+                checkDeepLink(sharedPreferences)
             }
         })
     }
 
-    private fun checkDeepLink(sharedPreferences: SharedPreferences) {
+    private fun checkDeepLink(
+        sharedPreferences: SharedPreferences,
+        isWeb: Boolean = false,
+        url: String? = null,
+        link: Boolean = false
+    ) {
         if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false) ||
-            sharedPreferences.getBoolean(APP_PREFERENCES_Link, false)
+            sharedPreferences.getBoolean(APP_PREFERENCES_Link, false) ||
+            link
         ) {
-            val editor = sharedPreferences.edit()
-            editor.putBoolean(APP_PREFERENCES_Link, true)
-            editor.apply()
-            checkDatabase()
+            setPreference(sharedPreferences, true)
+            router(isWeb, url)
         } else {
             router()
         }
+    }
+
+    private fun setPreference(sharedPreferences: SharedPreferences, state: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(APP_PREFERENCES_Link, state)
+        editor.apply()
     }
 
     private fun router(isWeb: Boolean = false, url: String? = null) {

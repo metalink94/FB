@@ -17,6 +17,7 @@ import android.webkit.*
 import android.widget.Toast
 import kotlinx.android.synthetic.main.web.*
 import ru.lopav.kzn.fb.R
+import ru.lopav.kzn.fb.utils.NestedWebView
 
 
 class WebViewActivity : AppCompatActivity() {
@@ -34,14 +35,23 @@ class WebViewActivity : AppCompatActivity() {
         currentUrl = intent.getStringExtra(KEY_URL)
         checkPermissions()
         initWebView()
-        refresh.setOnClickListener {
+        fab.setOnClickListener {
             refreshClick()
         }
+        webView.onScrollChangedCallback =
+                NestedWebView.OnScrollChangedCallback { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                    if (scrollY > oldScrollY && scrollY > 0) {
+                        fab.hide()
+                    }
+                    if (scrollY < oldScrollY) {
+                        fab.show()
+                    }
+                }
     }
 
     private fun refreshClick() {
         load()
-        refresh.setOnClickListener(null)
+        fab.setOnClickListener(null)
     }
 
     private fun checkPermissions() {
@@ -65,7 +75,7 @@ class WebViewActivity : AppCompatActivity() {
                 progress.progress = newProgress
                 if (newProgress == 100) {
                     progress.visibility = View.GONE
-                    refresh.setOnClickListener { refreshClick() }
+                    fab.setOnClickListener { refreshClick() }
                 } else {
                     progress.visibility = View.VISIBLE
                 }

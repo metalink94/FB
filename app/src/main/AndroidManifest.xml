@@ -57,6 +57,12 @@
                         android:scheme="mfbcas"
                         android:host="screen"
                 />
+                <data
+                        android:scheme="https"
+                        android:host="m.fbcas.com"
+                        android:pathPattern="/..*"
+                />
+
             </intent-filter>
         </activity>
     </application>
